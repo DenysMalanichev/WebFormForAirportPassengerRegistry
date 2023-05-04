@@ -147,10 +147,17 @@ namespace WebFormForAirportPassengerRegistry.Controllers
             var passenger = await _context.Passengers.FindAsync(id);
             if (passenger != null)
             {
-                _context.Passengers.Remove(passenger);
+                _context.Passengers.Remove(passenger);             
+            }
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return View("ErrorDeleting");
             }
             
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
