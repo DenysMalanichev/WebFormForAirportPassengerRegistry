@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WebFormForAirportPassengerRegistry.FlightTicket>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Flight Tickets</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LuggageVolume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LuggageWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Passenger)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LuggageVolume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LuggageWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight.FlightId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Passenger.PassengerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Visa.VisaId)
+            </td>
+            <td style="text-align: right;">
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.FlightTicketId">Edit</a> &nbsp;
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.FlightTicketId">Details</a> &nbsp;
+                <button data-id="@item.FlightTicketId" class="btn btn-danger deleteBtn" type="button">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<form id="deleteForm" asp-action="Delete">
+    <input type="hidden" id="flightTicketId" name="Id" />
+</form>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+        $(function () {
+            $('.deleteBtn').click(function (e) {
+                swal({
+                    title: "Are you sure?",
+                    text: "Are you sure you want to delete this record?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                }).then((confirm) => {
+                    if (confirm) {
+                        var btn = $(this);
+                        var id = btn.data("id");
+                        $('#flightTicketId').val(id);
+                        $('#deleteForm').submit();
+                    }
+                });
+            });
+        });
+    </script>
+}

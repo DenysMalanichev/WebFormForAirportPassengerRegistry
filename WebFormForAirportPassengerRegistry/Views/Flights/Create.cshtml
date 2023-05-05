@@ -1,0 +1,51 @@
+﻿@model WebFormForAirportPassengerRegistry.Flight
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Flight</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SeatsNum" class="control-label"></label>
+                <input asp-for="SeatsNum" class="form-control" />
+                <span asp-validation-for="SeatsNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrivalTime" class="control-label"></label>
+                <input asp-for="ArrivalTime" class="form-control" />
+                <span asp-validation-for="ArrivalTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartureTime" class="control-label"></label>
+                <input asp-for="DepartureTime" class="form-control" />
+                <span asp-validation-for="DepartureTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlaceOfDeparture" class="control-label"></label>
+                <input asp-for="PlaceOfDeparture" class="form-control" />
+                <span asp-validation-for="PlaceOfDeparture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlaceOfArrival" class="control-label"></label>
+                <input asp-for="PlaceOfArrival" class="form-control" />
+                <span asp-validation-for="PlaceOfArrival" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TerminalId" class="control-label"></label>
+                <select asp-for="TerminalId" class ="form-control" asp-items="ViewBag.TerminalId"></select>
+            </div>
+            <br/>
+			<div class="form-group">
+				<a class="btn btn-secondary" asp-action="Index">Back to List</a>
+				<input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

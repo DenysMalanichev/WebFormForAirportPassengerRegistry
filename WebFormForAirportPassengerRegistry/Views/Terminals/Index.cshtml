@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebFormForAirportPassengerRegistry.Terminal>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="text-align: right;">
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.TerminalId">Edit</a> 
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.TerminalId">Details</a> 
+                <button data-id="@item.TerminalId" class="btn btn-danger deleteBtn" type="button">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<form id="deleteForm" asp-action="Delete">
+    <input type="hidden" id="TerminalId" name="Id" />
+</form>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+        $(function () {
+            $('.deleteBtn').click(function (e) {
+                swal({
+                    title: "Are you sure?",
+                    text: "Are you sure you want to delete this record?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                }).then((confirm) => {
+                    if (confirm) {
+                        var btn = $(this);
+                        var id = btn.data("id");
+                        $('#TerminalId').val(id);
+                        $('#deleteForm').submit();
+                    }
+                });
+            });
+        });
+    </script>
+}
